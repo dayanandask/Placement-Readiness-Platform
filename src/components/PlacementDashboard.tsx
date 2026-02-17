@@ -192,6 +192,10 @@ function RecruiterView({ students, filterScore, setFilterScore }: { students: an
                     <p className="text-muted-foreground mt-2">Filter and select ready candidates for interview.</p>
                 </div>
                 <div className="flex items-center gap-6">
+                    <button className="flex items-center gap-2 bg-accent/5 text-accent px-6 py-2 border border-accent/20 uppercase tracking-widest text-xs font-bold hover:bg-accent/10 transition-colors">
+                        <Bell size={16} /> Bulk Notify
+                    </button>
+                    <div className="h-8 w-px bg-muted mx-2"></div>
                     <label className="text-sm uppercase tracking-widest">Min ATS Score</label>
                     <input
                         type="range"
@@ -202,6 +206,13 @@ function RecruiterView({ students, filterScore, setFilterScore }: { students: an
                     />
                     <span className="font-serif text-2xl w-10">{filterScore}</span>
                 </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                <StatMini label="Total Pipeline" value={students.length.toString()} />
+                <StatMini label="Shortlisted" value={students.filter(s => s.atsScore > 75).length.toString()} />
+                <StatMini label="Interviewed" value="12" />
+                <StatMini label="Placed" value="4" />
             </div>
 
             <div className="card p-0 overflow-hidden">
@@ -249,6 +260,15 @@ function RecruiterView({ students, filterScore, setFilterScore }: { students: an
                 </table>
             </div>
         </main>
+    );
+}
+
+function StatMini({ label, value }: { label: string, value: string }) {
+    return (
+        <div className="bg-white/50 border border-muted p-6">
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">{label}</div>
+            <div className="text-2xl font-serif text-foreground">{value}</div>
+        </div>
     );
 }
 
